@@ -1,5 +1,4 @@
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
-from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from forms import RegistrationForm,LoginForm
@@ -7,20 +6,12 @@ from flask_login import LoginManager, current_user, login_user,UserMixin,logout_
 #instaciating Flask app
 app = Flask(__name__)
 
-# Setting database session to your database to use flask-sessions
-app.config['SESSION_TYPE'] = 'sqlalchemy'
 
 app.secret_key = 'your secret key here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
-
-# Database we are using for flask-sessions
-app.config['SESSION_SQLALCHEMY'] = db
-
-# instanciating flask-sessions to actual flask app
-sess = Session(app)
 
 # Instanciating flask-login
 login_manager = LoginManager()
